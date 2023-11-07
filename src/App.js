@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const initialFriends = [
   {
     id: 118836,
@@ -19,14 +21,31 @@ const initialFriends = [
   },
 ];
 
+function Button({ children, onClick, specialClass }) {
+  return (
+    <button className={`button ${specialClass}`} onClick={onClick}>
+      {children}
+    </button>
+  );
+}
+
 export default function App() {
+  const [showAddFriend, setShowAddFriend] = useState(false);
+
+  function handleShowAddFriend() {
+    setShowAddFriend((show) => !show);
+  }
+
   return (
     <div className="app">
       <div className="sidebar">
         <FriendsList />
-        <FormAddFriend />
-        <Button>Add Friend</Button>
+        {showAddFriend && <FormAddFriend />}
+        <Button onClick={handleShowAddFriend} specialClass={"speCl"}>
+          {showAddFriend ? "Close" : "Add Friend"}
+        </Button>
       </div>
+      <FormSplitBill />
     </div>
   );
 }
@@ -65,10 +84,6 @@ function Friend({ friend }) {
   );
 }
 
-function Button({ children }) {
-  return <button className="button">{children}</button>;
-}
-
 function FormAddFriend() {
   return (
     <form className="add-add-friend">
@@ -83,4 +98,27 @@ function FormAddFriend() {
   );
 }
 
-function FormSplitBill() {}
+function FormSplitBill() {
+  return (
+    <form action="" className="form-split-bill">
+      <h2>Split a bill with X</h2>
+
+      <label>💰 Bill value</label>
+      <input type="text" />
+
+      <label>🧍🏾‍♂️ Your Expense</label>
+      <input type="text" />
+
+      <label>👭 X's Expense</label>
+      <input type="text" disabled />
+
+      <label>🙂 Who is paying the bill?</label>
+      <select>
+        <option value="user">You</option>
+        <option value="friend">X</option>
+      </select>
+
+      <Button>Split bill</Button>
+    </form>
+  );
+}

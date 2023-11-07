@@ -42,6 +42,11 @@ body {
   font-weight: bold;
   cursor: pointer;
   transition: 0.3s;
+  /* margin-top: 0.8rem; */
+}
+
+.speCl {
+  margin-top: 0.8rem;
 }
 
 .button:hover {
